@@ -15,8 +15,8 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 
-group = 'com.jojoldu'
-version = '0.0.2'
+group = 'com.choi'
+version = '0.0.3'
 sourceCompatibility = 1.8
 
 repositories {
