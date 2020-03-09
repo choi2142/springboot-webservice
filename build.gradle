@@ -37,4 +37,5 @@ dependencies {
 	testCompile('org.springframework.boot:spring-boot-starter-test')
 	annotationProcessor 'org.projectlombok:lombok:1.18.8'
 	compile('javax.xml.bind:jaxb-api:2.3.0')
+
 }

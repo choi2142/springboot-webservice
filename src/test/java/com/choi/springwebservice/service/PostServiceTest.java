@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import com.choi.springwebservice.domain.posts.Posts;
 import com.choi.springwebservice.domain.posts.PostsRepostitory;
 import com.choi.springwebservice.dto.posts.PostsSaveRequestDto;
+import com.choi.springwebservice.dto.posts.PostsUpdateRequestDto;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -45,6 +46,26 @@ public class PostServiceTest {
 		assertThat(posts.getContent()).isEqualTo(dto.getContent());
 		assertThat(posts.getTitle()).isEqualTo(dto.getTitle());
 	}
-				
+	
+	@Test
+	public void Dto데이터가_posts테이블에_수정된다() {
+		//given
+		PostsSaveRequestDto dto = PostsSaveRequestDto.builder()
+				.author("choi2142@naver.com")
+				.content("테스트")
+				.title("테스트 타이틀")
+				.build();
+		Long id = postsService.save(dto);
+		
+		//when
+		String updateTitle = "Test";
+		
+		postsService.update(updateTitle,id);
+		
+		//then
+		Posts posts = postsRepository.findAll().get(0);
+		assertThat(posts.getTitle()).isEqualTo(updateTitle);
+	}
+	
 
 }

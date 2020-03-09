@@ -12,6 +12,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
@@ -35,6 +36,10 @@ public class Posts  extends BaseTimeEntity{
 		this.title = title;
 		this.content = content;
 		this.author = author;
+	}
+	
+	public void ChangeTitle(String title) {
+		this.title = title;
 	}
 
 }
