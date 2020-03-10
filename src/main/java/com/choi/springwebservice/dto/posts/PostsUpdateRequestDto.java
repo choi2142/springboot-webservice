@@ -18,7 +18,8 @@ public class PostsUpdateRequestDto {
 	private String author;
 	
 	@Builder
-	public PostsUpdateRequestDto(String title, String content, String author) {
+	public PostsUpdateRequestDto(Long id , String title, String content, String author) {
+		this.id = id;
 		this.title = title;
 		this.content = content;
 		this.author = author;
@@ -27,6 +28,7 @@ public class PostsUpdateRequestDto {
 	
 	public Posts toEntity() {
 		return Posts.builder()
+				.id(id)
 				.title(title)
 				.content(content)
 				.author(author)

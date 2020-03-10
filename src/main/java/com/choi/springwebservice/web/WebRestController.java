@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.choi.springwebservice.dto.posts.PostsSaveRequestDto;
+import com.choi.springwebservice.dto.posts.PostsUpdateRequestDto;
 import com.choi.springwebservice.service.PostsService;
 
 import lombok.AllArgsConstructor;
@@ -28,6 +29,11 @@ public class WebRestController {
 	@PostMapping("/posts")
 	public Long savePosts(@RequestBody PostsSaveRequestDto dto) {
 		return postsService.save(dto);
+	}
+	
+	@PostMapping("/postsupdate")
+	public void updatePosts(@RequestBody PostsUpdateRequestDto dto) {
+		postsService.update(dto);
 	}
 	
 	@GetMapping("/profile")

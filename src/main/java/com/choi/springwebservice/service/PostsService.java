@@ -7,6 +7,7 @@ import com.choi.springwebservice.domain.posts.Posts;
 import com.choi.springwebservice.domain.posts.PostsRepostitory;
 import com.choi.springwebservice.dto.posts.PostsMainResponseDto;
 import com.choi.springwebservice.dto.posts.PostsSaveRequestDto;
+import com.choi.springwebservice.dto.posts.PostsUpdateRequestDto;
 
 import lombok.AllArgsConstructor;
 
@@ -24,9 +25,9 @@ public class PostsService {
 	    }
 	  
 	  @Transactional
-	    public void update(String title, Long id){
-		  	Posts posts = postsRepository.getOne(id);
-		  	posts.ChangeTitle(title);
+	    public void update(PostsUpdateRequestDto dto){
+		  	Posts posts = postsRepository.getOne(dto.getId());
+		  	posts.ChangeTitle(dto.getTitle());
 		  	
 	    }
 	  	
