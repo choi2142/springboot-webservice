@@ -15,11 +15,11 @@
         <br/>
         <br/>
         <!-- 목록 출력 영역 -->
-        <table class="table table-horizontal table-bordered">
+        <table class="table table-horizontal table-bordered table-striped">
             <thead class="thead-strong">
                 <tr>
                     <th>게시글번호</th>
-                    <th>제목</th>
+                    <th >제목</th>
                     <th>작성자</th>
                     <th>최종수정일</th>
                 </tr>
@@ -27,10 +27,10 @@
             <tbody id="tbody">
             {{#each posts}}
                 <tr>
-                    <td>{{id}}</td>
-                    <td>{{title}}</td>
-                    <td>{{author}}</td>
-                    <td>{{modifiedDate}}</td>
+                    <td id="list_id">{{id}}</td>
+                    <td id="btn-detail" data-toggle="modal" data-target="#modifyPostsModal">{{title}}</td>
+                    <td id="list_author">{{author}}</td>
+                    <td id="list_modifiedDate">{{modifiedDate}}</td>
                 </tr>
             {{/each}}
             </tbody>
@@ -66,6 +66,43 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
                     <button type="button" class="btn btn-primary" id="btn-save">등록</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal 영역 -->
+    <div class="modal fade" id="modifyPostsModal" tabindex="-1" role="dialog" aria-labelledby="modifyPostsModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="modifyPostsLabel">게시글 수정</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                    	<div class="form-group">
+                           <label for="id">게시글번호</label>
+                            <input type="text" class="form-control" id="id" value= {{id}}></input>
+                        </div>
+                        <div class="form-group">
+                            <label for="title">제목</label>
+                            <input type="text" class="form-control" id="title2" placeholder="제목을 입력하세요">
+                        </div>
+                        <div class="form-group">
+                            <label for="author"> 작성자 </label>
+                            <input type="text" class="form-control" id="author2" placeholder="작성자를 입력하세요">
+                        </div>
+                        <div class="form-group">
+                            <label for="content"> 내용 </label>
+                            <textarea class="form-control" id="content2" placeholder="내용을 입력하세요"></textarea>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
                     <button type="button" class="btn btn-primary" id="btn-update">수정</button>
                 </div>
             </div>
