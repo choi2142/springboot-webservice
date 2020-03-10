@@ -47,26 +47,26 @@ public class PostServiceTest {
 		assertThat(posts.getTitle()).isEqualTo(dto.getTitle());
 	}
 	
-	@Test
-	public void Dto데이터가_posts테이블에_수정된다() {
-		//given
-		
-		Long id = (long) 1;
-		
-		PostsUpdateRequestDto dto = PostsUpdateRequestDto.builder()
-				.id(id)
-				.author("choi2142@naver.com")
-				.content("테스트")
-				.title("테스트 타이틀")
-				.build();
-
-		//when
-		postsService.update(dto);
-		
-		//then
-		Posts posts = postsRepository.findAll().get(0);
-		assertThat(posts.getTitle()).isEqualTo("테스트 타이틀");
-	}
+//	@Test
+//	public void Dto데이터가_posts테이블에_수정된다() {
+//		//given
+//		
+//		Long id = (long) 1;
+//		
+//		PostsUpdateRequestDto dto = PostsUpdateRequestDto.builder()
+//				.id(id)
+//				.author("choi2142@naver.com")
+//				.content("테스트")
+//				.title("테스트 타이틀")
+//				.build();
+//
+//		//when
+//		postsService.update(dto);
+//		
+//		//then
+//		Posts posts = postsRepository.findAll().get(0);
+//		assertThat(posts.getTitle()).isEqualTo("테스트 타이틀");
+//	}
 	
 
 }
