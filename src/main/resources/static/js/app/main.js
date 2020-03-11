@@ -7,9 +7,26 @@ var main = {
         $('#btn-update').on('click', function () {
             _this.update();
         });
-        $('#btn-detail').on('click', function () {
-            _this.detail();
+        // 테이블의 Row 클릭시 값 가져오기
+    	$("#example-talbe tr").click(function(){ 	
+    		var str =""
+	   		var tdArr = new Array();	    	
+	    	// 현재 클립된 Row
+	    	var tr = $(this);
+	    	var td = tr.children();
+	    	var no = td.eq(0).text();
+			var content = td.eq(4).text();
+			
+			var realno = $("#id").html();
+			
+			console.log("realid : " + realno);
+	    	
+	    	// tr.text()는 클릭된 Row 즉 tr에 있는 모든 값을 가져온다.
+			console.log("클릭한 Row의 모든 데이터 : "+tr.text());                
+			$("#id2").html(no);
+			$("#content2").html(content);
         });
+
     },
     save : function () {
         var data = {
@@ -32,19 +49,17 @@ var main = {
         });
     },
     update : function () {
-        var data2 = {
-        	id: $('#id').val(),
-            title: $('#title2').val(),
-            author: $('#author2').val(),
+        var data = {
+        	id: $('#id2').val(),
             content: $('#content2').val()
         };
 
         $.ajax({
             type: 'POST',
             url: '/postsupdate',
-            dataType: 'json',
+            dataType: 'text',
             contentType:'application/json; charset=utf-8',
-            data2: JSON.stringify(data2)
+            data: JSON.stringify(data)
         }).done(function() {
             alert('글이 수정되었습니다.');
             location.reload();
@@ -52,28 +67,6 @@ var main = {
             alert(error);
         });
     }
-    ,
-    detail : function () {
-        var data3 = {
-        	id: $('#list_id').val(),
-            title: $('#btn-detail').val(),
-            author: $('#list_author').val()
-        };
-
-        $.ajax({
-            type: 'POST',
-            url: '/postsupdate',
-            dataType: 'json',
-            contentType:'application/json; charset=utf-8',
-            data2: JSON.stringify(data3)
-        }).done(function() {
-            alert('글이 수정되었습니다.');
-            location.reload();
-        }).fail(function (error) {
-            alert(error);
-        });
-    }
-
 };
 
 main.init();

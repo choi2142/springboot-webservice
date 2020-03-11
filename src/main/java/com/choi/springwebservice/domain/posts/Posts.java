@@ -6,6 +6,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
+import org.hibernate.annotations.DynamicUpdate;
+
 import com.choi.springwebservice.domain.BaseTimeEntity;
 
 import lombok.AccessLevel;
@@ -17,6 +19,7 @@ import lombok.Setter;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
+@DynamicUpdate
 public class Posts  extends BaseTimeEntity{
 	
 	@Id
@@ -39,8 +42,8 @@ public class Posts  extends BaseTimeEntity{
 		this.author = author;
 	}
 	
-	public void ChangeTitle(String title) {
-		this.title = title;
+	public void ChangeTitle(String content) {
+		this.title = content;
 	}
 
 }

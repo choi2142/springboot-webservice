@@ -9,15 +9,17 @@ import lombok.Getter;
 
 @Getter
 public class PostsMainResponseDto {
-	 private Long id;
+		private Long id;
 	    private String title;
 	    private String author;
 	    private String modifiedDate;
+	    private String content;
 
 	    public PostsMainResponseDto(Posts entity) {
 	        id = entity.getId();
 	        title = entity.getTitle();
 	        author = entity.getAuthor();
+	        content= entity.getContent();
 	        modifiedDate = toStringDateTime(entity.getModifiedDate());
 	    }
 

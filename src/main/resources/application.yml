@@ -15,3 +15,11 @@ spring:
   h2:
     console:
       enabled: true
+      
+logging:
+  level:
+     org.springframework.web: INFO
+     com.choi.springwebservice.service : INFO
+     com.choi.springwebservice.web : INFO
+     org.hibernate: INFO
+     org: INFO
