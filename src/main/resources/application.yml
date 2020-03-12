@@ -18,8 +18,8 @@ spring:
       
 logging:
   level:
-     org.springframework.web: INFO
-     com.choi.springwebservice.service : INFO
-     com.choi.springwebservice.web : INFO
-     org.hibernate: INFO
-     org: INFO
+     org.springframework.web: DEBUG
+     com.choi.springwebservice.service : DEBUG
+     com.choi.springwebservice.web : DEBUG
+     org.hibernate: DEBUG
+     org: DEBUG
