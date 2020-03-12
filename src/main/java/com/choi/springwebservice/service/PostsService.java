@@ -5,6 +5,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.choi.springwebservice.domain.posts.Posts;
 import com.choi.springwebservice.domain.posts.PostsRepostitory;
+import com.choi.springwebservice.dto.posts.PostsDeleteRequestDto;
 import com.choi.springwebservice.dto.posts.PostsMainResponseDto;
 import com.choi.springwebservice.dto.posts.PostsSaveRequestDto;
 import com.choi.springwebservice.dto.posts.PostsUpdateRequestDto;
@@ -28,6 +29,12 @@ public class PostsService {
 	    public void update(PostsUpdateRequestDto dto){
 		  	Posts posts = postsRepository.getOne(dto.getId());
 		  	posts.ChangeTitle(dto.getContent());
+		  	
+	    }
+	  
+	  @Transactional
+	    public void delete(PostsDeleteRequestDto dto){
+		  postsRepository.delete(dto.toEntity());
 		  	
 	    }
 	  	

@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import com.choi.springwebservice.domain.posts.Posts;
 import com.choi.springwebservice.domain.posts.PostsRepostitory;
+import com.choi.springwebservice.dto.posts.PostsDeleteRequestDto;
 import com.choi.springwebservice.dto.posts.PostsSaveRequestDto;
 import com.choi.springwebservice.dto.posts.PostsUpdateRequestDto;
 
@@ -23,10 +24,10 @@ public class PostServiceTest {
 	@Autowired
 	private PostsRepostitory postsRepository;
 	
-	@After
-	public void cleanup() {
-		postsRepository.deleteAll();
-	}
+//	@After
+//	public void cleanup() {
+//		postsRepository.deleteAll();
+//	}
 	
 	@Test
 	public void Dto데이터가_posts테이블에_저장된다() {
@@ -47,26 +48,47 @@ public class PostServiceTest {
 		assertThat(posts.getTitle()).isEqualTo(dto.getTitle());
 	}
 	
-//	@Test
-//	public void Dto데이터가_posts테이블에_수정된다() {
-//		//given
-//		
-//		Long id = (long) 1;
-//		
-//		PostsUpdateRequestDto dto = PostsUpdateRequestDto.builder()
-//				.id(id)
-//				.author("choi2142@naver.com")
-//				.content("테스트")
-//				.title("테스트 타이틀")
-//				.build();
-//
-//		//when
-//		postsService.update(dto);
-//		
-//		//then
-//		Posts posts = postsRepository.findAll().get(0);
-//		assertThat(posts.getTitle()).isEqualTo("테스트 타이틀");
-//	}
+	@Test
+	public void Dto데이터가_posts테이블에_수정된다() {
+		//given
+		PostsUpdateRequestDto dto = PostsUpdateRequestDto.builder()
+				.id(1L)
+				.author("test1@naver.com")
+				.content("테스트1")
+				.title("테스트1")
+				.build();
+
+		//when
+		postsService.update(dto);
+		
+		//then
+		for(Posts posts : postsRepository.findAll()) {
+			if(posts.getId().equals(1L)){
+				assertThat(posts.getContent()).isEqualTo("테스트1");
+			}
+		}
+	}
+	
+	@Test
+	public void Dto데이터가_posts테이블에_삭제된다() {
+		//given				
+		PostsDeleteRequestDto dto = PostsDeleteRequestDto.builder()
+				.id(1L)
+				.author("test1@naver.com")
+				.content("테스트1")
+				.title("테스트1")
+				.build();
+
+		//when
+		postsService.delete(dto);
+		
+		//then
+		
+		for(Posts posts : postsRepository.findAll()) {
+			assertThat(posts.getId()).isNotEqualTo(1L);
+		}
+		
+	}
 	
 
 }

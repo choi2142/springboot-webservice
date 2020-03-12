@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.choi.springwebservice.dto.posts.PostsDeleteRequestDto;
 import com.choi.springwebservice.dto.posts.PostsSaveRequestDto;
 import com.choi.springwebservice.dto.posts.PostsUpdateRequestDto;
 import com.choi.springwebservice.service.PostsService;
@@ -34,6 +35,11 @@ public class WebRestController {
 	@PostMapping("/postsupdate")
 	public void updatePosts(@RequestBody PostsUpdateRequestDto dto) {
 		postsService.update(dto);
+	}
+	
+	@PostMapping("/postsdelete")
+	public void updatePosts(@RequestBody PostsDeleteRequestDto dto) {
+		postsService.delete(dto);
 	}
 	
 	@GetMapping("/profile")

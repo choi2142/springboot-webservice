@@ -28,7 +28,7 @@
             {{#each posts}}
                 <tr>
                     <td >{{id}}</td>
-                    <td data-toggle="modal" data-target="#modifyPostsModal">{{title}}</td>
+                    <td style="cursor:pointer"  data-toggle="modal" data-target="#modifyPostsModal">{{title}}</td>
                     <td >{{author}}</td>
                     <td >{{modifiedDate}}</td> 
                     <td style="visibility:hidden">{{content}}</td>
@@ -97,6 +97,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
                     <button type="button" class="btn btn-primary" id="btn-update">수정</button>
+                    <button type="button" class="btn btn-primary" id="btn-delete">삭제</button>
                 </div>
             </div>
         </div>

@@ -7,6 +7,9 @@ var main = {
         $('#btn-update').on('click', function () {
             _this.update();
         });
+        $('#btn-delete').on('click', function () {
+            _this.delete();
+        });
         // 테이블의 Row 클릭시 값 가져오기
     	$("#example-talbe tr").click(function(){ 	
     		var str =""
@@ -62,6 +65,24 @@ var main = {
             data: JSON.stringify(data)
         }).done(function() {
             alert('글이 수정되었습니다.');
+            location.reload();
+        }).fail(function (error) {
+            alert(error);
+        });
+    },
+    delete : function () {
+        var data = {
+        	id: $('#id2').val()
+        };
+
+        $.ajax({
+            type: 'POST',
+            url: '/postsdelete',
+            dataType: 'text',
+            contentType:'application/json; charset=utf-8',
+            data: JSON.stringify(data)
+        }).done(function() {
+            alert('글이 삭제되었습니다.');
             location.reload();
         }).fail(function (error) {
             alert(error);
