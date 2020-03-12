@@ -10,10 +10,10 @@ public class SpringWebserviceApplication {
 	
 	public static final String APPLICATION_LOCATIONS = "spring.confg.location"
 			+"classpath:application.yml,"
-			+"~/app/config/springboot-webservice/real-application.yml";
+			+"/home/ec2-user/app/config/springboot-webservice/real-application.yml";
 
 	public static void main(String[] args) {
-		
+				
 		new SpringApplicationBuilder(SpringWebserviceApplication.class)
 				.properties(APPLICATION_LOCATIONS)
 				.run(args);
