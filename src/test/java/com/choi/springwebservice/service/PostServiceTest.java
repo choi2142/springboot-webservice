@@ -53,6 +53,7 @@ public class PostServiceTest {
 		//given
 		PostsUpdateRequestDto dto = PostsUpdateRequestDto.builder()
 				.id(1L)
+				.title("테스트1")
 				.content("테스트122222")
 				.build();
 
