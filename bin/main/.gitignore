@@ -1,3 +1,7 @@
+/READ.md
+/application.properties
+/application.yml
 /com/
-/templates/
+/data-h2.sql
 /static/
+/templates/
