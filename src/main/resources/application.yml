@@ -23,3 +23,4 @@ logging:
      com.choi.springwebservice.web : INFO
      org.hibernate: INFO
      org: INFO
+     
