@@ -53,9 +53,7 @@ public class PostServiceTest {
 		//given
 		PostsUpdateRequestDto dto = PostsUpdateRequestDto.builder()
 				.id(1L)
-				.author("test1@naver.com")
-				.content("테스트1")
-				.title("테스트1")
+				.content("테스트122222")
 				.build();
 
 		//when
@@ -64,7 +62,7 @@ public class PostServiceTest {
 		//then
 		for(Posts posts : postsRepository.findAll()) {
 			if(posts.getId().equals(1L)){
-				assertThat(posts.getContent()).isEqualTo("테스트1");
+				assertThat(posts.getContent()).isEqualTo("테스트122222");
 			}
 		}
 	}

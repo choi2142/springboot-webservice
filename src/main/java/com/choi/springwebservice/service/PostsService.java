@@ -28,7 +28,7 @@ public class PostsService {
 	  @Transactional
 	    public void update(PostsUpdateRequestDto dto){
 		  	Posts posts = postsRepository.getOne(dto.getId());
-		  	posts.ChangeTitle(dto.getContent());
+		  	posts.ChangeContent(dto.getContent());
 		  	
 	    }
 	  
