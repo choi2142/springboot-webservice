@@ -20,14 +20,9 @@ var main = {
 	    	var no = td.eq(0).text();
 			var content = td.eq(4).text();
 			
-			var realno = $("#id").html();
+			$("#id2").val(no);
+			$("#content2").val(content);
 			
-			console.log("realid : " + realno);
-	    	
-	    	// tr.text()는 클릭된 Row 즉 tr에 있는 모든 값을 가져온다.
-			console.log("클릭한 Row의 모든 데이터 : "+tr.text());                
-			$("#id2").html(no);
-			$("#content2").html(content);
         });
 
     },
