@@ -4,20 +4,20 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
+import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.List;
 
-import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import com.choi.springwebservice.domain.posts.Posts;
 import com.choi.springwebservice.domain.posts.PostsRepostitory;
-
-
-import java.time.LocalDateTime;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -26,11 +26,11 @@ public class PostsRepositoryTest {
 	@Autowired
 	PostsRepostitory postsRepository;
 	
-	@After
-	public void cleanup() {
-		/* 이후 테스트 코드에 영향을 미치지 않게 롤백 */
-		postsRepository.deleteAll();
-	}
+//	@After
+//	public void cleanup() {
+//		/* 이후 테스트 코드에 영향을 미치지 않게 롤백 */
+//		postsRepository.deleteAll();
+//	}
 	
 	@Test
 	public void 게시글저장_불러오기() {
@@ -50,6 +50,22 @@ public class PostsRepositoryTest {
 		assertThat(posts.getTitle(), is("테스트 게시글"));
 		assertThat(posts.getContent(), is("테스트 본문"));
 	}
+	
+	@Test
+    public void findByContent() {
+		postsRepository.findBoardByContent("테스트1")
+                .forEach(posts -> System.out.println(posts.getContent()));
+    }
+	
+	@Test
+    public void testIdOrderByPaging() {
+		
+		PageRequest req = new PageRequest(0,16);		
+		
+        Pageable pageable = req;
+        Collection<Posts> posts = postsRepository.findByIdGreaterThanOrderByIdDesc(0l, pageable);
+        posts.forEach(board -> System.out.println(board.getContent()));
+    }
 	
 	@Test
 	public void BaseTimeEntity_등록() {

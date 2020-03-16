@@ -27,7 +27,7 @@
             <tbody id="tbody">
             {{#each posts}}
                 <tr>
-                    <td >{{id}}</td>
+                    <td class="scrolling" data-bno={{id}}>{{id}}</td>
                     <td style="cursor:pointer"  data-toggle="modal" data-target="#modifyPostsModal">{{title}}</td>
                     <td >{{author}}</td>
                     <td >{{modifiedDate}}</td> 

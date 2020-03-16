@@ -1,5 +1,7 @@
 package com.choi.springwebservice.service;
 
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,6 +14,7 @@ import com.choi.springwebservice.dto.posts.PostsUpdateRequestDto;
 
 import lombok.AllArgsConstructor;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -44,4 +47,23 @@ public class PostsService {
 	        		.map(PostsMainResponseDto::new)
 	                .collect(Collectors.toList());
 	    }
+	  
+	  @Transactional(readOnly = true)
+	    public List<Posts> findByIdGreaterThanOrderByIdDesc(PostsMainResponseDto dto) {
+		  PageRequest req = new PageRequest(0,16);		
+			
+	        Pageable pageable = req;
+	        
+	        return postsRepository.findByIdGreaterThanOrderByIdDesc(0l, pageable);
+	  }
+	  
+	  @Transactional(readOnly = true)
+	    public List<Posts> findByIdGreaterThanOrderByIdDesc() {
+		  PageRequest req = new PageRequest(0,16);		
+			
+	        Pageable pageable = req;
+	        
+	        return postsRepository.findByIdGreaterThanOrderByIdDesc(0l, pageable);
+	  }
+	  
 }
