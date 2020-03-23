@@ -1,7 +1,9 @@
 package com.choi.springwebservice.service;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,24 +48,17 @@ public class PostsService {
 	        return postsRepository.findAllDesc()
 	        		.map(PostsMainResponseDto::new)
 	                .collect(Collectors.toList());
-	    }
+	    }	  
 	  
 	  @Transactional(readOnly = true)
-	    public List<Posts> findByIdGreaterThanOrderByIdDesc(PostsMainResponseDto dto) {
-		  PageRequest req = new PageRequest(0,16);		
+	    public Page<Posts> getList(Pageable pageable) {
+		  	int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1); // page는 index 처럼 0부터 시작
+	     
+		  	PageRequest req = new PageRequest(page,10, new Sort(Sort.Direction.DESC, "id"));		
 			
-	        Pageable pageable = req;
+	        pageable = req;
 	        
-	        return postsRepository.findByIdGreaterThanOrderByIdDesc(0l, pageable);
-	  }
-	  
-	  @Transactional(readOnly = true)
-	    public List<Posts> findByIdGreaterThanOrderByIdDesc() {
-		  PageRequest req = new PageRequest(0,16);		
-			
-	        Pageable pageable = req;
-	        
-	        return postsRepository.findByIdGreaterThanOrderByIdDesc(0l, pageable);
+	        return postsRepository.findAll(pageable);
 	  }
 	  
 }

@@ -38,5 +38,12 @@ dependencies {
 	annotationProcessor 'org.projectlombok:lombok:1.18.8'
 	compile('javax.xml.bind:jaxb-api:2.3.0')
 	compile("org.mariadb.jdbc:mariadb-java-client")
+	
+}
 
+dependencies {
+    compile 'com.github.jknack:handlebars-helpers:4.0.7',
+            'com.github.jknack:handlebars-jackson2:4.0.7',
+            'com.github.jknack:handlebars-humanize:4.0.7',
+            'com.github.jknack:handlebars-markdown:4.0.7'
 }

@@ -25,52 +25,6 @@ var main = {
 			$("#content2").val(content);
 			
         });
-    	$(window).scroll(function() {
-            if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-            	var lastbno = $(".scrolling:last").attr("data-bno");
-            	
-            	$.ajax({
-            		type : 'POST', // 요청 method 방식
-            		url    :'/scrollDown', //요청할 서버의 url
-            		header : {
-            			"content-type" : "application/json",
-            			"X-HTTP-Method-Overrid" : "POST"
-            		},
-            		dataType : 'json',
-            		data : JSON.stringify({
-            			bno : lastbno
-            		}),
-            		
-            		success : function(data){
-            			var str ="";
-            			
-            			if(data != ""){
-            				$(data).each(
-            						function(){
-            							console.log(this);
-            							str += "<tr class=" + "'listToChange'" + ">"
-            								 +		"<td class=" + "'scrolling'" + " data-bno='" + this.bno +"'>"
-            								 +			this.bno
-            								 +		"</td>"
-            								 +		"<td style=" + "'cusor:pointer'" + " data-toggle=" + "'modal'" + "data-target=" + "'#modifyPostsModal'" + "'>"
-            								 +			this.title
-            								 +		"</td>"
-            								 +		"<td>" + this.modifiedDate  + "</td>"            								 
-            								 +		"<td style=" + "'visibility:hidden'" + "'>" + this.content +"</td>"
-            								 +		"</tr>";
-            						});
-            						$(".listToChange").empty();
-            						$(".scrollLocation").after(str);
-            			}
-            			else{
-            				alert("더 불러올 데이터가 없습니다.");
-            			}
-            		}
-            	})
-            	            	
-            }
-        });
-
     },
     save : function () {
         var data = {
@@ -117,13 +71,14 @@ var main = {
         };
 
         $.ajax({
-            type: 'POST',
+            type: 'GET',
             url: '/postsdelete',
             dataType: 'text',
             contentType:'application/json; charset=utf-8',
             data: JSON.stringify(data)
-        }).done(function() {            
-            location.reload();
+        }).done(function() {          
+        	 alert('글이 삭제되었습니다.');
+        	 location.reload();
         }).fail(function (error) {
             alert(error);
         });

@@ -12,6 +12,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.junit4.SpringRunner;
@@ -50,21 +51,16 @@ public class PostsRepositoryTest {
 		assertThat(posts.getTitle(), is("테스트 게시글"));
 		assertThat(posts.getContent(), is("테스트 본문"));
 	}
-	
-	@Test
-    public void findByContent() {
-		postsRepository.findBoardByContent("테스트1")
-                .forEach(posts -> System.out.println(posts.getContent()));
-    }
-	
+		
 	@Test
     public void testIdOrderByPaging() {
 		
 		PageRequest req = new PageRequest(0,16);		
 		
         Pageable pageable = req;
-        Collection<Posts> posts = postsRepository.findByIdGreaterThanOrderByIdDesc(0l, pageable);
+        Page<Posts> posts = postsRepository.findAll(pageable);
         posts.forEach(board -> System.out.println(board.getContent()));
+                
     }
 	
 	@Test

@@ -36,5 +36,6 @@ public class WebControllerTest {
 		assertThat(profile).isEqualTo("local");
 		
 	}
+	
 
 }
