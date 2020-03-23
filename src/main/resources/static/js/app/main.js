@@ -11,6 +11,10 @@ var main = {
         $('#btn-delete').on('click', function () {
             _this.delete();
         });
+     // 테이블의 Row 클릭시 값 가져오기
+        $("#example-talbe tr").click(function(){
+            _this.();
+        });
         // 테이블의 Row 클릭시 값 가져오기
     	$("#example-talbe tr").click(function(){ 	
     		var str =""
