@@ -60,5 +60,11 @@ public class PostsService {
 	        
 	        return postsRepository.findAll(pageable);
 	  }
+	  	  
+	  @Transactional(readOnly = true)
+	    public Posts getDetail(Long id) {
+		  	
+	        return postsRepository.findDetail(id);
+	  }
 	  
 }

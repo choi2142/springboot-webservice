@@ -9,112 +9,11 @@
     <link rel="stylesheet" href="/css/lib/bootstrap.min.css">
 </head>
 <body>
-    <h1>스프링부트로 시작하는 웹 서비스 Ver.4</h1>
-    <div class="col-md-12">
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#savePostsModal">글 등록</button>
-        <br/>
-        <br/>
-        <!-- 목록 출력 영역 -->
-        <table class="table table-horizontal table-bordered table-striped" id="example-talbe">
-            <thead class="thead-strong">
-                <tr class="scrollLocation">
-                    <th>게시글번호</th>
-                    <th >제목</th>
-                    <th>작성자</th>
-                    <th>최종수정일</th>
-                </tr>
-            </thead>
-            <tbody id="tbody">
-            {{#each posts}}
-                <tr class=listToChange>
-                    <td class="scrolling" data-bno={{id}}>{{id}}</td>
-                    <td style="cursor:pointer"  data-toggle="modal" data-target="#modifyPostsModal">{{title}}</td>
-                    <td >{{author}}</td>
-                    <td >{{modifiedDate}}</td> 
-                    <td style="visibility:hidden">{{content}}</td>
-                </tr>
-            {{/each}}
-            </tbody>
-        </table>
-    </div>
-    
-    <div>{{posts.number}}</div>
-    <div>{{posts.size}}</div>
-    <div>{{posts.sort}}</div>
-    <div>{{posts.total}}</div>
-    
-    <!-- Modal 영역 -->
-    <div class="modal fade" id="savePostsModal" tabindex="-1" role="dialog" aria-labelledby="savePostsLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="savePostsLabel">게시글 등록</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="title">제목</label>
-                            <input type="text" class="form-control" id="title" placeholder="제목을 입력하세요">
-                        </div>
-                        <div class="form-group">
-                            <label for="author"> 작성자 </label>
-                            <input type="text" class="form-control" id="author" placeholder="작성자를 입력하세요">
-                        </div>
-                        <div class="form-group">
-                            <label for="content"> 내용 </label>
-                            <textarea class="form-control" id="content" placeholder="내용을 입력하세요"></textarea>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-                    <button type="button" class="btn btn-primary" id="btn-save">등록</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Modal 영역 -->
-    <div class="modal fade" id="modifyPostsModal" tabindex="-1" role="dialog" aria-labelledby="modifyPostsModal" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="modifyPostsLabel">게시글 수정</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                    	<div class="form-group">
-                           <label for="id">게시글번호</label>
-                            <input class="form-control" id="id2" placeholder="내용을 입력하세요"></input>
-                        </div>
-                        <div class="form-group">
-                            <label for="content"> 내용 </label>
-                            <textarea class="form-control" id="content2" placeholder="내용을 입력하세요"></textarea>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-                    <button type="button" class="btn btn-primary" id="btn-update">수정</button>
-                    <button type="button" class="btn btn-primary" id="btn-delete">삭제</button>
-                </div>
-            </div>
-        </div>
-    </div>    
-	
+    <h1>게시판</h1>
+   	<a href="/board/board_list" > 게시판 바로가기</a>	
     <!--부트스트랩 js, jquery 추가-->
     <script src="/js/lib/jquery.min.js"></script>
     <script src="/js/lib/bootstrap.min.js"></script>
-
-    <!--custom js 추가-->
-    
-    <script src="/js/app/main.js"></script>
     
 
 </body>

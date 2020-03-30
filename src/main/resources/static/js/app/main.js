@@ -1,7 +1,8 @@
+var flag = true;
+
 var main = {
     init : function () {
         var _this = this;
-        var page = 1;
         $('#btn-save').on('click', function () {
             _this.save();
         });
@@ -11,25 +12,19 @@ var main = {
         $('#btn-delete').on('click', function () {
             _this.delete();
         });
-     // 테이블의 Row 클릭시 값 가져오기
-        $("#example-talbe tr").click(function(){
-            _this.();
+    	// 페이징 처리    	
+    	$("#pagination").twbsPagination({
+        	totalPages: 10,
+        	visiblePages: 5,
+        	initiateStartPageClick:false,
+
+        	onPageClick: function (event, page) {
+        		redraw(page);
+		    }
         });
-        // 테이블의 Row 클릭시 값 가져오기
-    	$("#example-talbe tr").click(function(){ 	
-    		var str =""
-	   		var tdArr = new Array();	    	
-	    	// 현재 클립된 Row
-	    	var tr = $(this);
-	    	var td = tr.children();
-	    	var no = td.eq(0).text();
-			var content = td.eq(4).text();
-			
-			$("#id2").val(no);
-			$("#content2").val(content);
-			
-        });
-    },
+    	
+    	
+    },    
     save : function () {
         var data = {
             title: $('#title').val(),
@@ -88,5 +83,42 @@ var main = {
         });
     }
 };
+
+function detail(id){
+	$(location).attr('href', '/board/board_detail?id='+id)
+}
+
+function redraw(page){
+	if(flag){
+		flag = false;
+		$.ajax({
+			type : 'GET',
+			url : '/board/board_list_page?page='+page,
+			dataType: 'text'
+		}).done(function(data){
+			// innerHtml 작성
+			var obj = JSON.parse(data);
+			var content ="";
+			console.log(obj.content[0].id);
+			for(var i =0;obj.content.length > i;i++){
+				content 		 += "<tr><td class=\"scrolling\" data-bno="+obj.content[i].id+"} >"+obj.content[i].id+"</td>"
+			     +  "<td  style=\"cursor:pointer\" >"
+			     +  "<a href=\"javascript:detail("+obj.content[i].id+");\">"+obj.content[i].title+"</a>"
+			     + "</td>"
+			     +  "<td>"+obj.content[i].author+"</td>"
+			     +  "<td>"+obj.content[i].modifiedDate+"</td>";
+			}			 
+			
+			$('#tbody').empty().append(content);
+			
+			$("#pagination").twbsPagination("changeTotalPages", obj.totalPages, obj.number+1);
+			
+		}).fail(function(error){
+			console.log('fail' + error);
+		}).always(function(){
+			flag = true;
+		});
+	}
+}
 
 main.init();

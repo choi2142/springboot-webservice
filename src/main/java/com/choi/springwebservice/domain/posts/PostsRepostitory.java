@@ -11,4 +11,9 @@ public interface PostsRepostitory extends JpaRepository<Posts, Long>{
             "ORDER BY p.id DESC")
     Stream<Posts> findAllDesc();	
 	
+	@Query("SELECT p " +
+            "FROM Posts p " +
+			"where p.id = ?1")
+    Posts findDetail(Long id);	
+	
 }
