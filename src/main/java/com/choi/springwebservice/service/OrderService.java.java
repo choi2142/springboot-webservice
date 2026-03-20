@@ -2,30 +2,46 @@ package com.choi.springwebservice.service;
 
 import com.choi.springwebservice.domain.order.Order;
 import com.choi.springwebservice.domain.order.OrderRepository;
-import com.choi.springwebservice.dto.order.OrderRequestDto;
-import com.choi.springwebservice.dto.order.OrderResponseDto;
-import lombok.RequiredArgsConstructor;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
+@AllArgsConstructor
 @Service
-@RequiredArgsConstructor
 public class OrderService {
     private final OrderRepository orderRepository;
 
     @Transactional
-    public Long createOrder(OrderRequestDto orderRequestDto) {
-        Order order = orderRequestDto.toEntity();
-        if (order.getTotalAmount() <= 0) {
-            throw new IllegalArgumentException("Total amount must be greater than zero");
-        }
-        return orderRepository.save(order).getId();
+    public Order save(Order order) {
+        return orderRepository.save(order);
+    }
+
+    @Transactional
+    public void update(Order order) {
+        Order existingOrder = orderRepository.findById(order.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Order not found"));
+        existingOrder.setCustomer(order.getCustomer());
+        existingOrder.setOrderDate(order.getOrderDate());
+        existingOrder.setTotalAmount(order.getTotalAmount());
+        existingOrder.setStatus(order.getStatus());
+        // Add more fields as necessary
+    }
+
+    @Transactional
+    public void delete(Long orderId) {
+        orderRepository.deleteById(orderId);
     }
 
     @Transactional(readOnly = true)
-    public OrderResponseDto getOrder(Long id) {
-        Order order = orderRepository.findById(id)
+    public List<Order> findAll() {
+        return orderRepository.findAll();
+    }
+
+    @Transactional(readOnly = true)
+    public Order findById(Long orderId) {
+        return orderRepository.findById(orderId)
                 .orElseThrow(() -> new IllegalArgumentException("Order not found"));
-        return new OrderResponseDto(order);
     }
 }
