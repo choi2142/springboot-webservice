@@ -19,36 +19,36 @@ import lombok.NoArgsConstructor;
 @Getter
 @Entity
 @DynamicUpdate
-public class Posts  extends BaseTimeEntity{
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	@Column(length = 500, nullable = false)
-	private String title;
-	
-	@Column(columnDefinition = "TEXT" , nullable = false)
-	private String content;
-	
-	private String author;
-	
-	@Column(nullable = false)
-	private boolean isDeleted = false;
-	
-	@Builder
-	public Posts(Long id , String title, String content, String author) {
-		this.id = id;
-		this.title = title;
-		this.content = content;
-		this.author = author;
-	}
-	
-	public void ChangeContent(String content) {
-		this.content = content;
-	}
+public class Posts extends BaseTimeEntity {
 
-	public void restore() {
-		this.isDeleted = false;
-	}
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(length = 500, nullable = false)
+    private String title;
+
+    @Column(columnDefinition = "TEXT", nullable = false)
+    private String content;
+
+    private String author;
+
+    @Column(nullable = false)
+    private boolean isDeleted = false;
+
+    @Builder
+    public Posts(Long id, String title, String content, String author) {
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.author = author;
+    }
+
+    public void ChangeContent(String content) {
+        this.content = content;
+    }
+
+    public void restore() {
+        this.isDeleted = false;
+    }
 }
