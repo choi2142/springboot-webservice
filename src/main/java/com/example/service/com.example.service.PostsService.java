@@ -11,9 +11,10 @@ public class PostsService {
     @Autowired
     private PostsRepostitory postsRepository;
 
-    public Posts findPostById(Long id) {
+    public Posts getDetail(Long id) {
         Posts post = postsRepository.findById(id).orElseThrow(() -> new RuntimeException("Post not found"));
         post.updateViews();
+        postsRepository.save(post); // 변경된 Posts 객체를 저장
         return post;
     }
 }

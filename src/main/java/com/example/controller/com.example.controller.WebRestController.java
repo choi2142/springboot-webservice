@@ -20,8 +20,8 @@ public class WebRestController {
 
     @GetMapping("/posts/{id}")
     public Posts getPostById(@PathVariable Long id) {
-        Posts post = postsService.findPostById(id);
-        logger.info("Post " + id + " view count updated to " + post.getViews());
+        Posts post = postsService.getDetail(id);
+        logger.info("Post " + id + " has been viewed. Current views: " + post.getViews());
         return post;
     }
 }

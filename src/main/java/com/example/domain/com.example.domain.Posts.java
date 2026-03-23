@@ -1,6 +1,12 @@
 package com.example.domain;
 
+import lombok.Builder;
+import lombok.Getter;
+
+@Getter
+@Entity
 public class Posts {
+    @Id
     private Long id;
     private String title;
     private String content;
@@ -9,22 +15,6 @@ public class Posts {
     public Posts(String title, String content) {
         this.title = title;
         this.content = content;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public long getViews() {
-        return views;
     }
 
     public void updateViews() {
