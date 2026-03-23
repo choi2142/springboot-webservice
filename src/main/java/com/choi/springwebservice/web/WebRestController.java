@@ -1,78 +1,27 @@
 package com.choi.springwebservice.web;
 
-import java.io.IOException;
-import java.util.Arrays;
-import java.util.List;
-
-import org.springframework.core.env.Environment;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.data.web.PageableDefault;
+import com.choi.springwebservice.dto.ResponseDto;
+import com.choi.springwebservice.service.CommentService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.choi.springwebservice.domain.posts.Posts;
-import com.choi.springwebservice.dto.posts.PostsDeleteRequestDto;
-import com.choi.springwebservice.dto.posts.PostsMainResponseDto;
-import com.choi.springwebservice.dto.posts.PostsSaveRequestDto;
-import com.choi.springwebservice.dto.posts.PostsUpdateRequestDto;
-import com.choi.springwebservice.service.PostsService;
-
-import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+import lombok.RequiredArgsConstructor;
 
 @RestController
-@AllArgsConstructor
+@RequestMapping("/api/comments")
+@RequiredArgsConstructor
 public class WebRestController {
-    
-    private PostsService postsService;
-    private Environment env;
-    
-    @GetMapping("/hello")
-    public String hello() {
-        return"HelloWorld";
+
+    private final CommentService commentService;
+
+    @GetMapping
+    public ResponseEntity<ResponseDto> getComments() {
+        // Logic to get comments
+        return ResponseEntity.ok(new ResponseDto());
     }
-    
-    @PostMapping("/posts")
-    public Long savePosts(@RequestBody PostsSaveRequestDto dto) {
-        return postsService.save(dto);
-    }
-    
-    @PostMapping("/postsupdate")
-    public void updatePosts(@RequestBody PostsUpdateRequestDto dto) {
-        postsService.update(dto);
-    }
-    
-    @PostMapping("/postsdelete")
-    public void updatePosts(@RequestBody PostsDeleteRequestDto dto) {
-        postsService.delete(dto);
-    }
-    
-    @GetMapping("/profile")
-    public String getProfile() {
-        return Arrays.stream(env.getActiveProfiles())
-                .findAny()
-                .orElse("");
-    }
-    
-    @GetMapping("/board/board_list_page")
-    public Page<Posts> board_list_page(@PageableDefault Pageable pageable) throws IOException {
-        Page<Posts> boardList = postsService.getList(pageable);
-        
-        return boardList;
-    }
-    
-    @GetMapping("/posts/count")
-    public long getPostsCount() {
-        return postsService.getAvailablePostsCount();
-    }
-    
-    @PostMapping("/posts/restore/{id}")
-    public ResponseEntity<Void> restorePost(@PathVariable Long id) {
-        postsService.restorePost(id);
-        return ResponseEntity.ok().build();
+
+    @PostMapping
+    public ResponseEntity<ResponseDto> saveComment(@RequestBody SaveRequestDto saveRequestDto) {
+        // Logic to save comment
+        return ResponseEntity.ok(new ResponseDto());
     }
 }
