@@ -9,11 +9,13 @@ public interface PostsRepostitory extends JpaRepository<Posts, Long>{
 	@Query("SELECT p " +
             "FROM Posts p " +
             "ORDER BY p.id DESC")
-    Stream<Posts> findAllDesc();	
+    Stream<Posts> findAllDesc();  
 	
 	@Query("SELECT p " +
             "FROM Posts p " +
 			"where p.id = ?1")
-    Posts findDetail(Long id);	
+    Posts findDetail(Long id);
 	
+	@Query("SELECT COUNT(p) FROM Posts p WHERE p.isDeleted = false")
+	long countByIsDeletedFalse();
 }

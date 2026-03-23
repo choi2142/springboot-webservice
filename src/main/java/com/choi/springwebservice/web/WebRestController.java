@@ -52,17 +52,19 @@ public class WebRestController {
 	@GetMapping("/profile")
 	public String getProfile() {
 		return Arrays.stream(env.getActiveProfiles())
-					.findAny()
-					.orElse("");
+				.findAny()
+				.orElse("");
 	}
 	
 	@GetMapping("/board/board_list_page")
 	public Page<Posts> board_list_page(@PageableDefault Pageable pageable) throws IOException {
 		Page<Posts> boardList = postsService.getList(pageable);
 		
-//		JSONPObject jsonobj = new JSONPObject("data", boardList);		
-		
 		return boardList;
-		
+	}
+	
+	@GetMapping("/posts/count")
+	public long getPostsCount() {
+		return postsService.getAvailablePostsCount();
 	}
 }

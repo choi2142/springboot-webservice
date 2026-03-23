@@ -33,6 +33,9 @@ public class Posts  extends BaseTimeEntity{
 	
 	private String author;
 	
+	@Column(nullable = false)
+	private boolean isDeleted = false;
+	
 	@Builder
 	public Posts(Long id , String title, String content, String author) {
 		this.id = id;
