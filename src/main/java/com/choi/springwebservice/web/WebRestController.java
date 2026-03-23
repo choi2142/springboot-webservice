@@ -8,7 +8,9 @@ import org.springframework.core.env.Environment;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,46 +27,52 @@ import lombok.AllArgsConstructor;
 @RestController
 @AllArgsConstructor
 public class WebRestController {
-	
-	private PostsService postsService;
-	private Environment env;
-	
-	@GetMapping("/hello")
-	public String hello() {
-		return"HelloWorld";
-	}
-	
-	@PostMapping("/posts")
-	public Long savePosts(@RequestBody PostsSaveRequestDto dto) {
-		return postsService.save(dto);
-	}
-	
-	@PostMapping("/postsupdate")
-	public void updatePosts(@RequestBody PostsUpdateRequestDto dto) {
-		postsService.update(dto);
-	}
-	
-	@PostMapping("/postsdelete")
-	public void updatePosts(@RequestBody PostsDeleteRequestDto dto) {
-		postsService.delete(dto);
-	}
-	
-	@GetMapping("/profile")
-	public String getProfile() {
-		return Arrays.stream(env.getActiveProfiles())
-				.findAny()
-				.orElse("");
-	}
-	
-	@GetMapping("/board/board_list_page")
-	public Page<Posts> board_list_page(@PageableDefault Pageable pageable) throws IOException {
-		Page<Posts> boardList = postsService.getList(pageable);
-		
-		return boardList;
-	}
-	
-	@GetMapping("/posts/count")
-	public long getPostsCount() {
-		return postsService.getAvailablePostsCount();
-	}
+    
+    private PostsService postsService;
+    private Environment env;
+    
+    @GetMapping("/hello")
+    public String hello() {
+        return"HelloWorld";
+    }
+    
+    @PostMapping("/posts")
+    public Long savePosts(@RequestBody PostsSaveRequestDto dto) {
+        return postsService.save(dto);
+    }
+    
+    @PostMapping("/postsupdate")
+    public void updatePosts(@RequestBody PostsUpdateRequestDto dto) {
+        postsService.update(dto);
+    }
+    
+    @PostMapping("/postsdelete")
+    public void updatePosts(@RequestBody PostsDeleteRequestDto dto) {
+        postsService.delete(dto);
+    }
+    
+    @GetMapping("/profile")
+    public String getProfile() {
+        return Arrays.stream(env.getActiveProfiles())
+                .findAny()
+                .orElse("");
+    }
+    
+    @GetMapping("/board/board_list_page")
+    public Page<Posts> board_list_page(@PageableDefault Pageable pageable) throws IOException {
+        Page<Posts> boardList = postsService.getList(pageable);
+        
+        return boardList;
+    }
+    
+    @GetMapping("/posts/count")
+    public long getPostsCount() {
+        return postsService.getAvailablePostsCount();
+    }
+    
+    @PostMapping("/posts/restore/{id}")
+    public ResponseEntity<Void> restorePost(@PathVariable Long id) {
+        postsService.restorePost(id);
+        return ResponseEntity.ok().build();
+    }
 }

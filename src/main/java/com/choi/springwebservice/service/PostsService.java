@@ -23,52 +23,57 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Service
 public class PostsService {
-	private PostsRepostitory postsRepository;
-	
-	@Transactional
-	public Long save(PostsSaveRequestDto dto){
-		return postsRepository.save(dto.toEntity()).getId();
-	}
-	  
-	@Transactional
-	public void update(PostsUpdateRequestDto dto){
-		Posts posts = postsRepository.getOne(dto.getId());
-		posts.ChangeContent(dto.getContent());
-		
-	}
-	  
-	@Transactional
-	public void delete(PostsDeleteRequestDto dto){
-		postsRepository.delete(dto.toEntity());
-		
-	}
-		  
-	@Transactional(readOnly = true)
-	public List<PostsMainResponseDto> findAllDesc() {
-		return postsRepository.findAllDesc()
-				.map(PostsMainResponseDto::new)
-				.collect(Collectors.toList());
-	}  
-	  
-	@Transactional(readOnly = true)
-	public Page<Posts> getList(Pageable pageable) {
-		int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1); // page는 index 처럼 0부터 시작
-	 
-		PageRequest req = new PageRequest(page,10, new Sort(Sort.Direction.DESC, "id"));		
-		
-		pageable = req;
-		
-		return postsRepository.findAll(pageable);
-	}
-	  
-	@Transactional(readOnly = true)
-	public Posts getDetail(Long id) {
-		
-		return postsRepository.findDetail(id);
-	}
-	
-	@Transactional(readOnly = true)
-	public long getAvailablePostsCount() {
-		return postsRepository.countByIsDeletedFalse();
-	}
+    private PostsRepostitory postsRepository;
+
+    @Transactional
+    public Long save(PostsSaveRequestDto dto){
+        return postsRepository.save(dto.toEntity()).getId();
+    }
+
+    @Transactional
+    public void update(PostsUpdateRequestDto dto){
+        Posts posts = postsRepository.getOne(dto.getId());
+        posts.ChangeContent(dto.getContent());
+    }
+
+    @Transactional
+    public void delete(PostsDeleteRequestDto dto){
+        postsRepository.delete(dto.toEntity());
+    }
+
+    @Transactional(readOnly = true)
+    public List<PostsMainResponseDto> findAllDesc(String author) {
+        return postsRepository.findAllByAuthorAndNotDeleted(author).stream()
+                .map(PostsMainResponseDto::new)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public Page<Posts> getList(Pageable pageable) {
+        int page = (pageable.getPageNumber() == 0) ? 0 : (pageable.getPageNumber() - 1); // page는 index 처럼 0부터 시작
+
+        PageRequest req = new PageRequest(page,10, new Sort(Sort.Direction.DESC, "id"));
+
+        pageable = req;
+
+        return postsRepository.findAll(pageable);
+    }
+
+    @Transactional(readOnly = true)
+    public Posts getDetail(Long id) {
+        return postsRepository.findDetail(id);
+    }
+
+    @Transactional(readOnly = true)
+    public long getAvailablePostsCount() {
+        return postsRepository.countByIsDeletedFalse();
+    }
+
+    @Transactional
+    public void restorePost(Long id) {
+        Posts post = postsRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("No post found with id " + id));
+        post.setDeleted(false);
+        postsRepository.save(post);
+    }
 }
