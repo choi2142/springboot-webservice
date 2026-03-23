@@ -3,10 +3,10 @@ package com.choi.springwebservice.service;
 import com.choi.springwebservice.domain.runner.RunnerRecord;
 import com.choi.springwebservice.domain.runner.RunnerRecordRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @RequiredArgsConstructor
 @Service
@@ -21,8 +21,8 @@ public class RunnerRecordService {
     }
 
     @Transactional(readOnly = true)
-    public List<RunnerRecord> getAllRunnerRecords() {
-        return runnerRecordRepository.findAll();
+    public Page<RunnerRecord> getAllRunnerRecords(Pageable pageable) {
+        return runnerRecordRepository.findAll(pageable);
     }
 
     private void validateRunnerRecord(RunnerRecord runnerRecord) {
