@@ -1,21 +1,22 @@
-package com.choi.springwebservice.domain.user;
+import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-
-@NoArgsConstructor
-@Getter
 @Entity
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String email;
-    private String name;
-    // other fields...
+    @Pattern(regexp = "^010-\d{4}-\d{4}$", message = "Invalid phone number format. Must be 010-XXXX-XXXX.")
+    private String phoneNumber;
+
+    // Other fields, getters, and setters
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 }
