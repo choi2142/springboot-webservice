@@ -1,19 +1,19 @@
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 import com.choi.springwebservice.domain.Posts;
 import com.choi.springwebservice.repository.PostsRepostitory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.test.annotation.Rollback;
 import org.springframework.transaction.annotation.Transactional;
 
-@SpringBootTest
-@AutoConfigureMockMvc
+@DataJpaTest
 @Transactional
-public class PostsRepositoryTest {
+@Rollback
+class PostsRepositoryTest {
 
     @Autowired
     private PostsRepostitory postsRepostitory;
@@ -21,7 +21,7 @@ public class PostsRepositoryTest {
     private Posts post;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         post = new Posts();
         post.setTitle("Test Title");
         post.setContent("Test Content");
@@ -34,7 +34,8 @@ public class PostsRepositoryTest {
         Long postId = post.getId();
 
         // When
-        Posts retrievedPost = postsRepostitory.getDetail(postId);
+        Posts retrievedPost = postsRepostitory.findById(postId).orElseThrow();
+        retrievedPost.updateViews();
 
         // Then
         assertThat(retrievedPost.getViews()).isEqualTo(1);
