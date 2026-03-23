@@ -3,11 +3,12 @@ package com.choi.springwebservice.web;
 import com.choi.springwebservice.domain.runner.RunnerRecord;
 import com.choi.springwebservice.service.RunnerRecordService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
@@ -23,8 +24,8 @@ public class RunnerRecordController {
     }
 
     @GetMapping
-    public ResponseEntity<List<RunnerRecord>> getAllRunnerRecords() {
-        List<RunnerRecord> records = runnerRecordService.getAllRunnerRecords();
+    public ResponseEntity<Page<RunnerRecord>> getAllRunnerRecords(Pageable pageable) {
+        Page<RunnerRecord> records = runnerRecordService.getAllRunnerRecords(pageable);
         return ResponseEntity.ok(records);
     }
 
