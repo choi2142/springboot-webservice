@@ -1,37 +1,42 @@
-package com.choi.springwebservice.repository;
-
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.boot.test.autoconfigure.orm.jpa.AutoConfigureTestDatabase.Replace.NONE;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.choi.springwebservice.domain.Posts;
+import com.choi.springwebservice.repository.PostsRepostitory;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.ActiveProfiles;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.transaction.annotation.Transactional;
 
-@DataJpaTest
-@ActiveProfiles("test")
+@SpringBootTest
+@AutoConfigureMockMvc
+@Transactional
 public class PostsRepositoryTest {
 
     @Autowired
     private PostsRepostitory postsRepostitory;
 
+    private Posts post;
+
     @BeforeEach
     public void setUp() {
-        // 초기 데이터 설정
-        Posts post = Posts.builder()
-                .title("Test Title")
-                .content("Test Content")
-                .build();
+        post = new Posts();
+        post.setTitle("Test Title");
+        post.setContent("Test Content");
         postsRepostitory.save(post);
     }
 
     @Test
-    public void testFindById() {
-        // 게시글 조회 테스트
-        Posts foundPost = postsRepostitory.findById(1L).orElse(null);
-        assertThat(foundPost).isNotNull();
-        assertThat(foundPost.getTitle()).isEqualTo("Test Title");
+    public void 게시글조회시_조회수증가() {
+        // Given
+        Long postId = post.getId();
+
+        // When
+        Posts retrievedPost = postsRepostitory.getDetail(postId);
+
+        // Then
+        assertThat(retrievedPost.getViews()).isEqualTo(1);
     }
 }

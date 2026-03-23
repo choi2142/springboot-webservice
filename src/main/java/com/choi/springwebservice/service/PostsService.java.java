@@ -14,7 +14,6 @@ public class PostsService {
     public Posts getDetail(Long id) {
         Posts post = postsRepostitory.findById(id).orElseThrow(() -> new RuntimeException("Post not found"));
         post.updateViews(); // Increment view count
-        postsRepostitory.save(post); // Save updated post
         return post;
     }
 }
